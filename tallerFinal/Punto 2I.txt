@@ -1,0 +1,51 @@
+# Método de Runge-Kutta de orden 4
+# y'= -a*y    y(0)=y0
+# Solucion
+# y = y0*e^(-a*x)
+
+# Ingrese un valor de alpha entre [0,10]:
+a<- -4.2
+
+# Ingrese Valores iniciales x0, yo:
+x0<-0
+y0<-1
+
+# Ingrese tamaño de paso h:
+h<-0.1
+
+# Ingrese número de pasos N:
+N<-100
+
+
+f<-function(x,y) a*y
+
+RK<-function(f,xi,yi,h){
+  k1<-f(xi,yi)
+  k2<-f(xi+(1/2)*h,yi+(1/2)*k1*h)
+  k3<-f(xi+(1/2)*h,yi+(1/2)*k2*h)
+  k4<-f(xi+h,yi+k3*h)
+  
+  ys<-yi+(h/6)*(k1+2*k2+2*k3+k4)
+  return(ys)
+}
+
+xp<-seq(x0,N*h+x0,h)
+ys<-replicate(N+1,0)
+
+ys[1]<-y0
+i<-2
+while(i<=N+1){
+  ys[i]<- RK(f,xp[i],ys[i-1],h)
+  i<-i+1
+}
+
+plot(xp,ys, type="o",main="Valores obtenidos con RK")
+
+g<-function(x) y0*exp(a*x)  
+ys2<-g(xp)
+error<-abs(ys-ys2)
+
+Matriz<-cbind(xp,ys,ys2,error)
+colnames(Matriz)<-c("xn","Aproximacion RK", "Solucion Real", "Error")
+Matriz<-round(Matriz,8)       
+View(Matriz)
