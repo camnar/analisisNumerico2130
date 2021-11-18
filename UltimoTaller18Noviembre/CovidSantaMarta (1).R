@@ -10,7 +10,7 @@ library(PolynomF)
 Beta<-0.06
 c <-1.5
 gama<- 0.021
-N1<-479835   #779853
+N1<-779853   #779853
 
 # Condiciones iniciales 
 I0<-2/N1
@@ -109,7 +109,8 @@ for (i in 1:dias){
    control[i]<-1
  } 
 }
-
+control
+length(control)
 plot(control)
 
 #-----------Punto 6
@@ -117,8 +118,8 @@ plot(control)
 
 #----------Punto 7
 
-vectorRe<- integer(652)
-for(i in 1:652){
+vectorRe<- integer(60)
+for(i in 1:60){
   vectorRe[i]<-Beta*c*vS[i]/(gama*N1)   #(Beta*vI[i]*vS[i])/gama
 }
 
